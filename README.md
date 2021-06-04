@@ -1,10 +1,9 @@
 # speedTest
 
 add to htlm such code: 
-
-<pre><code><div id="graphContainer" style="height: 180px; width: 400px">
+div id="graphContainer" style="height: 180px; width: 400px">
    <button id="speedButton" onclick="getVal()"> Get!</button>
-</div></code></pre>
+</div
 
 import scripts files: 
 <script src="./index.js"></script>
