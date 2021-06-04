@@ -3,7 +3,7 @@
 add to htlm such code: 
 div id="graphContainer" style="height: 180px; width: 400px">
    <button id="speedButton" onclick="getVal()"> Get!</button>
-</div
+/div>
 
 import scripts files: 
 <script src="./index.js"></script>
