@@ -32,7 +32,18 @@ let getVal = () => {
             let speed = 1000000 / (time)
             arrSpeed.push(speed * 1000 / 1024 / 1024 * 8);
             drowGraph(arrSpeed);
+            if(time>10000 && counter>1){
+                counter = 1;        
+            }
             getVal()
+            
+        }
+        Http.onerror = (e)=>{
+            document.getElementById("speedButton").disabled = false;
+            arrSpeed = [];
+            counter = 100;
+            avarageNum = 0;
+            drowGraph(arrSpeed);
         }
     } else {
         if (arrSpeed.length) {
@@ -48,7 +59,7 @@ drowGraph = function (arr) {
     let div = document.getElementById("graphContainer");
     settings = {};
     let d = new liteChart("chart", settings);
-    d.setLabels([...Array(100)]);
+    d.setLabels([...Array(arr.length)]);
     d.addLegend({
         "name": "Mb/s",
         "stroke": "#3b95f7",
@@ -57,9 +68,17 @@ drowGraph = function (arr) {
     });
     if (arrSpeed.length) {
         average(arrSpeed);
+    }else{
+        div.innerHTML += `<h3 id="avarage">Internet connection Error</h3>`;
     }
-    if (avarageNum > 0) {
+
+    if (avarageNum > 3) {
         div.innerHTML += `<h3 id="avarage">Internet connection speed ${avarageNum.toFixed(2)}Mb/s</h3>`;
+        d.axisY.maxValue= 0;
+
+    }    else if (avarageNum > 0){
+        div.innerHTML += `<h3 id="avarage">Internet connection speed ${avarageNum.toFixed(2)}Mb/s</h3>`;
+        d.axisY.maxValue= 3;
     }
     d.inject(div);
     d.draw();
